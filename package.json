@@ -1,0 +1,73 @@
+{
+  "name": "tailwind-ts-gen",
+  "version": "1.0.0",
+  "description": "Generate TS/JS constants with Tailwind CSS class names.",
+  "license": "MIT",
+  "bin": "bin/tw2ts.js",
+  "repository": "https://github.com/zamotany/tailwind-ts-gen.git",
+  "bugs": "https://github.com/zamotany/tailwind-ts-gen/issues",
+  "homepage": "https://github.com/zamotany/tailwind-ts-gen",
+  "author": {
+    "name": "Paweł Trysła",
+    "email": "zamotany.oss@gmail.com"
+  },
+  "keywords": [
+    "generate",
+    "generator",
+    "tailwind",
+    "tailwind-css",
+    "typescript",
+    "javascript",
+    "constants",
+    "const",
+    "classnames",
+    "classname",
+    "css",
+    "ts",
+    "js",
+    "cli"
+  ],
+  "files": [
+    "bin/",
+    "build/"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "clean": "del dist",
+    "watch": "yarn clean && concurrently \"yarn:watch:source\" \"yarn:watch:ts\"",
+    "build": "babel src --out-dir dist --extensions .ts --source-maps --ignore '**/__tests__/**'",
+    "watch:source": "yarn build --watch",
+    "watch:ts": "tsc --noEmit --watch --preserveWatchOutput",
+    "prepare": "yarn clean && yarn build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint --ext '.ts' src",
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "postcss": "*"
+  },
+  "dependencies": {
+    "yargs": "^15.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-typescript": "^7.7.4",
+    "@callstack/eslint-config": "^8.0.0",
+    "@types/node": "10",
+    "@types/prettier": "^1.19.0",
+    "@types/yargs": "^13.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/parser": "^2.9.0",
+    "concurrently": "^5.0.0",
+    "del-cli": "^3.0.0",
+    "eslint": "^6.7.1",
+    "jest": "^24.9.0",
+    "postcss": "7.0.23",
+    "prettier": "1.19.1",
+    "typescript": "^3.7.2"
+  }
+}
