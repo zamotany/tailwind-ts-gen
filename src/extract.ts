@@ -4,6 +4,7 @@ import selectorParser, { Node } from 'postcss-selector-parser';
 import { isAbsolute, resolve, relative } from 'path';
 import { promisify } from 'util';
 import { readFile } from 'fs';
+import * as log from './log';
 
 const readFileAsync = promisify(readFile);
 
@@ -48,7 +49,7 @@ export async function extractClassnames(
           ? inputFilename
           : resolve(inputFilename);
         const relativeInputFilename = relative(process.cwd(), absInputFilename);
-        console.log('Processing...', relativeInputFilename);
+        log.print(log.debug`Processing ${relativeInputFilename}`);
 
         const inputFile = await readFileAsync(absInputFilename, 'utf8');
         return new Promise<string[]>((resolve, reject) => {
@@ -56,9 +57,9 @@ export async function extractClassnames(
             .process(inputFile, { ...config.options, from: undefined })
             .then(results => {
               const warnings = results.warnings();
-              console.log('Extracted', relativeInputFilename);
+              log.print(log.debug`Extracted ${relativeInputFilename}`);
               if (warnings.length) {
-                console.log(warnings);
+                log.print(log.warn`${warnings}`);
               }
               return;
             })
@@ -78,7 +79,7 @@ export async function extractClassnames(
       return flatClassnames.indexOf(cx, index + 1) === -1;
     });
   } catch (error) {
-    console.log('Class names extraction failed');
+    log.print(log.error`Class names extraction failed`);
     throw error;
   }
 }

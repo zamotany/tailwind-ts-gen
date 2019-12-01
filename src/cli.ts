@@ -6,6 +6,7 @@ import { formatCode } from './format';
 import { isAbsolute, resolve } from 'path';
 import { promisify } from 'util';
 import { writeFile } from 'fs';
+import * as log from './log';
 
 const writeFileAsync = promisify(writeFile);
 
@@ -47,23 +48,22 @@ const argv = Yargs.scriptName('tw2ts')
   .help().argv;
 
 process.on('uncaughtException', error => {
-  console.error(error);
+  log.print(log.error`Unhandled error ${error}`);
   process.exit(1);
 });
 
 (async () => {
   try {
-    console.log(argv);
     const outputFilename = isAbsolute(argv.out) ? argv.out : resolve(argv.out);
-    console.log('Resolved output file to', outputFilename);
+    log.print(log.info`Resolved output file to ${outputFilename}`);
 
     const classnames = await extractClassnames(
       argv.input as string[],
       argv['postcss-config']
     );
 
-    console.log('Found', classnames.length, 'class names');
-    console.log('Parsing...');
+    log.print(log.info`Found ${classnames.length} class names`);
+    log.print(log.info`Parsing...`);
     const parsedClassnames = classnames.map(parseClassname);
     const classnameExports = parsedClassnames.map(
       parsedClassname =>
@@ -74,7 +74,7 @@ process.on('uncaughtException', error => {
         }";`
     );
 
-    console.log('Generating...');
+    log.print(log.info`Generating...`);
 
     let code = dedent`
     /**
@@ -88,9 +88,9 @@ process.on('uncaughtException', error => {
     code = await formatCode(code, outputFilename, argv['prettier-config']);
 
     writeFileAsync(outputFilename, code);
-    console.log('Done!');
+    log.print(log.success`Done!`);
   } catch (error) {
-    console.error(error);
+    log.print(log.error`Unhandled error ${error}`);
     process.exit(1);
   }
 })();

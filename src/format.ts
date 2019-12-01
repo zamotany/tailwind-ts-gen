@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { format, resolveConfig } from 'prettier';
+import * as log from './log';
 
 export async function formatCode(
   code: string,
@@ -18,10 +19,12 @@ export async function formatCode(
     prettier = require('prettier');
   } catch (error) {
     if (prettierConfig) {
-      console.log(
-        '--prettier-config options was specified, but prettier packages was not found in node_modules.'
+      log.print(
+        log.warn`--prettier-config options was specified, but prettier packages was not found in node_modules.`
       );
-      console.log('Install prettier with npm/yarn in order to format code.');
+      log.print(
+        log.warn`Install prettier with npm/yarn in order to format code.`
+      );
     }
 
     return code;

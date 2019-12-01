@@ -49,6 +49,7 @@
     "postcss": "*"
   },
   "dependencies": {
+    "colorette": "^1.1.0",
     "dedent": "^0.7.0",
     "postcss-load-config": "^2.1.0",
     "postcss-selector-parser": "^6.0.2",
