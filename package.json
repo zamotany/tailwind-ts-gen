@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Generate TS/JS constants with Tailwind CSS class names.",
   "license": "MIT",
-  "bin": "bin/tw2ts.js",
+  "bin": {
+    "tw2ts": "bin/tw2ts.js",
+    "tailwind-ts-gen": "bin/tw2ts.js"
+  },
   "repository": "https://github.com/zamotany/tailwind-ts-gen.git",
   "bugs": "https://github.com/zamotany/tailwind-ts-gen/issues",
   "homepage": "https://github.com/zamotany/tailwind-ts-gen",
@@ -75,7 +78,17 @@
     "jest": "^24.9.0",
     "postcss": "7.0.23",
     "prettier": "1.19.1",
+    "release-it": "^12.4.3",
     "tailwindcss": "^1.1.4",
     "typescript": "^3.7.2"
+  },
+  "release-it": {
+    "git": {
+      "tagName": "v${version}",
+      "commitMessage": "chore: publish v${version}"
+    },
+    "github": {
+      "release": true
+    }
   }
 }
