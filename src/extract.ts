@@ -4,7 +4,7 @@ import selectorParser, { Node } from 'postcss-selector-parser';
 import { isAbsolute, resolve, relative } from 'path';
 import { promisify } from 'util';
 import { readFile } from 'fs';
-import * as log from './log';
+import * as log from 'cli-tag-logger';
 
 const readFileAsync = promisify(readFile);
 

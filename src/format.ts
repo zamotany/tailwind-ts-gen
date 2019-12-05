@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { format, resolveConfig } from 'prettier';
-import * as log from './log';
+import * as log from 'cli-tag-logger';
 
 export async function formatCode(
   code: string,

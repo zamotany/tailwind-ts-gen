@@ -6,7 +6,7 @@ import { formatCode } from './format';
 import { isAbsolute, resolve } from 'path';
 import { promisify } from 'util';
 import { writeFile } from 'fs';
-import * as log from './log';
+import * as log from 'cli-tag-logger';
 
 const writeFileAsync = promisify(writeFile);
 
@@ -30,11 +30,6 @@ const argv = Yargs.scriptName('tw2ts')
     alias: 'o',
     demandOption: true,
     description: 'Path to an output file with generated code.',
-    type: 'string',
-  })
-  .option('tailwind-config', {
-    alias: 'c',
-    description: 'Path to Tailwind CSS config file.',
     type: 'string',
   })
   .option('postcss-config', {
