@@ -33,6 +33,8 @@ Assuming your `tailwind.css` file looks like this:
 @import "tailwindcss/utilities";
 ```
 
+__Don't forget to configure PostCSS with `postcss-import` plugin.__ Otherwise `tailwind-ts-gen` won't be able to find any Tailwind CSS classes.
+
 The generated file will look similarity to:
 ```ts
 /**
